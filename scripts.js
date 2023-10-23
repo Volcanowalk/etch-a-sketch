@@ -1,7 +1,41 @@
 document.addEventListener("DOMContentLoaded", (event) => {
-    const container = document.querySelector('.container')
     var size = 16;
-    var count = 1;
+    var color = false;
+
+    createGrid(size, color);
+
+    const resize = document.querySelector('.size')
+
+    resize.addEventListener("click", () => {
+        size = prompt("Please enter grid size. MAX: 100")
+
+        if(size > 100) {
+            size = 100;
+        }
+
+        createGrid(size, color)
+
+    })
+
+    const btnColor = document.querySelector('.color')
+
+    btnColor.addEventListener("click", () => {
+        if(!color) {
+            color = true;
+        } else {
+            color = false;
+        }
+
+        createGrid(size, color)
+    })
+
+
+})
+
+function createGrid(size, color) {
+    const container = document.querySelector('.container')
+
+    container.innerHTML = '';
 
     for (var i = 0; i < size; i++) {
         var col = document.createElement("div");
@@ -11,11 +45,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             cell.style.width = `${500/size}px`
             cell.style.height = `${500/size}px`
             cell.addEventListener("mouseover", (e) => {
-                e.target.style.background = "black";
+                if(!color){
+                    e.target.style.background = "black";
+                } else {
+                    e.target.style.background = randomRGB();
+                }
             })
             col.appendChild(cell);
         }
         container.appendChild(col);
     }
+}
 
-})
+function randomRGB() {
+    const r = Math.floor(Math.random() * 256)
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
+
+    console.log(r)
+
+    return `rgb(${r},${g},${b})`
+}
