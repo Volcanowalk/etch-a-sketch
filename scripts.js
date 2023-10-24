@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", (event) => {
-    var size = 16;
-    var color = false;
+var size = 16;
+var color = false;
 
-    createGrid(size, color);
+document.addEventListener("DOMContentLoaded", (event) => {
+    
+
+    createGrid(size);
 
     //Slider 
 
@@ -12,7 +14,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     slider.addEventListener('input', function(e) {
         var gridSize = e.target.value
         txtGridSize.textContent = `GRID: ${gridSize} X ${gridSize}`
-        createGrid(gridSize, color)
+        clearGrid()
+        createGrid(gridSize)
     })
 
     //Toggle color button
@@ -20,13 +23,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const btnColor = document.querySelector('.color')
 
     btnColor.addEventListener("click", () => {
+        const squares = document.querySelectorAll('.square')
+
         if(!color) {
             color = true;
         } else {
             color = false;
         }
 
-        createGrid(size, color)
+        
+        createGrid(size)
     })
 
     //Clear button
@@ -35,15 +41,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     btnClear.addEventListener('click', () => {
         clearGrid()
-        createGrid(size, color)
+        createGrid(size)
     })
 
 })
 
-function createGrid(size, color) {
+function createGrid(size) {
     const container = document.querySelector('.container')
-
-    clearGrid()
 
     for (var i = 0; i < size; i++) {
         var col = document.createElement("div");
@@ -53,7 +57,7 @@ function createGrid(size, color) {
             cell.style.width = `${500/size}px`
             cell.style.height = `${500/size}px`
             cell.addEventListener("mouseover", (e) => {
-                if(!color){
+                if(!color) {
                     e.target.style.background = "black";
                 } else {
                     e.target.style.background = randomRGB();
@@ -65,12 +69,11 @@ function createGrid(size, color) {
     }
 }
 
+
 function randomRGB() {
     const r = Math.floor(Math.random() * 256)
     const g = Math.floor(Math.random() * 256)
     const b = Math.floor(Math.random() * 256)
-
-    console.log(r)
 
     return `rgb(${r},${g},${b})`
 }
