@@ -4,17 +4,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     createGrid(size, color);
 
-    const resize = document.querySelector('.size')
+    const slider = document.querySelector(".slider")
+    const txtGridSize = document.querySelector('.gridSize')
 
-    resize.addEventListener("click", () => {
-        size = prompt("Please enter grid size. MAX: 100")
-
-        if(size > 100) {
-            size = 100;
-        }
-
-        createGrid(size, color)
-
+    slider.addEventListener('input', function(e) {
+        var gridSize = e.target.value
+        txtGridSize.textContent = `GRID: ${gridSize} X ${gridSize}`
+        createGrid(gridSize, color)
     })
 
     const btnColor = document.querySelector('.color')
@@ -29,13 +25,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         createGrid(size, color)
     })
 
+    const btnClear = document.querySelector('.clear')
+
+    btnClear.addEventListener('click', () => {
+        clearGrid()
+        createGrid(size, color)
+    })
 
 })
 
 function createGrid(size, color) {
     const container = document.querySelector('.container')
 
-    container.innerHTML = '';
+    clearGrid()
 
     for (var i = 0; i < size; i++) {
         var col = document.createElement("div");
@@ -65,4 +67,10 @@ function randomRGB() {
     console.log(r)
 
     return `rgb(${r},${g},${b})`
+}
+
+function clearGrid() {
+    const container = document.querySelector('.container')
+
+    container.innerHTML = '';
 }
