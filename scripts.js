@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const txtGridSize = document.querySelector('.gridSize')
 
     slider.addEventListener('input', function(e) {
-        var gridSize = e.target.value
-        txtGridSize.textContent = `GRID: ${gridSize} X ${gridSize}`
+        size = e.target.value
+        txtGridSize.textContent = `GRID: ${size} X ${size}`
         clearGrid()
-        createGrid(gridSize)
+        createGrid(size)
     })
 
     //Toggle color button
@@ -30,9 +30,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         } else {
             color = false;
         }
-
-        
-        createGrid(size)
     })
 
     //Clear button
